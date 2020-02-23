@@ -1,2 +1,2 @@
-include ':app', ':domain', ':presentation'
+include ':app', ':domain', ':presentation', ':data'
 rootProject.name='BankingAppCleanArchitect'
