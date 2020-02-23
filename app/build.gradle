@@ -24,6 +24,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'USER_ID', user_identifier
+        it.buildConfigField 'String', 'BASE_URL', base_url
+    }
 }
 
 dependencies {

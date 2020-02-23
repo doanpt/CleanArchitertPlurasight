@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ddona.banking">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".application.BankApplication"
         android:allowBackup="true"
@@ -19,7 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.transactions.TransactionListActivity" />
+        <activity
+            android:name=".ui.transactions.TransactionListActivity"
+            android:parentActivityName=".ui.home.HomeActivity" />
     </application>
 
 </manifest>

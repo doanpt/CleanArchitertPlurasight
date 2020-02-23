@@ -18,18 +18,22 @@ import com.ddona.banking.presentation.viewmodels.TransactionsViewModel
 import com.ddona.banking.utils.ALPHA_HIDDEN
 import com.ddona.banking.utils.ALPHA_VISIBLE
 import com.ddona.banking.utils.setCustomChecked
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_transaction_list.*
+import javax.inject.Inject
 
 class TransactionListActivity : AppCompatActivity(),
     TransactionsAdapter.TransactionClickListener,
     CompoundButton.OnCheckedChangeListener {
 
+    @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var transactionsViewModel: TransactionsViewModel
 
     private val transactionListAdapter = TransactionsAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction_list)
 

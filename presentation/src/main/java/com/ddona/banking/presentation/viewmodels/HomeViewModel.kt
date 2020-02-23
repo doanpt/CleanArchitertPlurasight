@@ -12,6 +12,7 @@ import com.ddona.banking.presentation.qualifier.UserIdentity
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.functions.Function
+import java.util.concurrent.TimeUnit
 
 import javax.inject.Inject
 
@@ -27,6 +28,7 @@ class HomeViewModel @Inject internal constructor(
             .map { userInfoMapper.to(it) }
             .map { Resource.success(it) }
             .startWith(Resource.loading())
+            .timeout(10000, TimeUnit.SECONDS)
             .onErrorResumeNext(
                 Function {
                     Observable.just(Resource.error(it.localizedMessage))

@@ -2,6 +2,7 @@ package com.ddona.banking.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -15,13 +16,16 @@ import com.ddona.banking.presentation.model.UserInfo
 import com.ddona.banking.presentation.viewmodels.HomeViewModel
 import com.ddona.banking.ui.transactions.TransactionListActivity
 import com.ddona.banking.utils.*
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {
     private val dateFormat = SimpleDateFormat("MMM - dd", Locale.getDefault())
 
+    @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var homeViewModel: HomeViewModel
@@ -29,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
     private var userInfo: UserInfo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -37,17 +42,17 @@ class HomeActivity : AppCompatActivity() {
             println("Observed...")
             when (resource.status) {
                 Status.LOADING -> {
-                    println("Loading")
+                    Log.d("doanpt", "LOADING")
                     showLoader()
                 }
                 Status.ERROR -> {
-                    println("ERROR")
+                    Log.d("doanpt", "ERROR")
                     userInfo = null
                     hideLoader()
                     tvHomeMessage.text = getText(R.string.msg_something_went_wrong)
                 }
                 Status.SUCCESS -> {
-                    println("Success: ${resource.data}")
+                    Log.d("doanpt", "Success: ${resource.data}")
                     hideLoader()
                     resource.data?.let {
                         tvHomeUserName.text = it.displayName
